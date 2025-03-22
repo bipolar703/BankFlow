@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "magic-mcp": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@smithery/cli@latest",
+        "run",
+        "@21st-dev/magic-mcp",
+        "--config",
+        "\"{\\\"TWENTY_FIRST_API_KEY\\\":\\\"40ace2baa139a6d86982bf2469b482a5a9f1310c4b70663461f6e74080ff845a\\\"}\""
+      ]
+    },
+    "github.com/mendableai/firecrawl-mcp-server": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "fc-97a0943bd80e4d0dbcec7b8da286ee0c"
+      }
+    }
+  }
+}
