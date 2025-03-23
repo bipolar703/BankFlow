@@ -1,5 +1,6 @@
-import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { resolve } from "path";
+import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,7 +11,10 @@ export default defineConfig({
 
       // ref: https://vite.dev/guide/api-plugin.html#transformindexhtml
       transformIndexHtml(html) {
-        if (process.env.NODE_ENV !== "development" && process.env.SHOW_WATERMARK !== "false") {
+        if (
+          process.env.NODE_ENV !== "development" &&
+          process.env.SHOW_WATERMARK !== "false"
+        ) {
           return [
             {
               tag: "style",
@@ -154,7 +158,34 @@ export default defineConfig({
       },
     },
   ],
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "src"),
+    },
+  },
+  build: {
+    outDir: "dist",
+    assetsDir: "assets",
+    sourcemap: false,
+    minify: "terser",
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom", "react-router-dom"],
+          ui: ["lucide-react", "react-credit-cards-2"],
+        },
+      },
+    },
+  },
   server: {
-    allowedHosts: true,
+    port: 3000,
+    strictPort: true,
+    host: true,
   },
 });

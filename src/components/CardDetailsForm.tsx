@@ -241,6 +241,7 @@ const CardDetailsForm = () => {
               placeholder="0000 0000 0000 0000"
               maxLength={19}
               className="w-full pr-10 pl-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-left dir-ltr form-input"
+              style={{ direction: "ltr" }}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
               <CreditCard size={18} />
@@ -266,6 +267,7 @@ const CardDetailsForm = () => {
               onFocus={handleInputFocus}
               placeholder="JOHN DOE"
               className="w-full pr-10 pl-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-left dir-ltr uppercase form-input"
+              style={{ direction: "ltr" }}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
               <User size={18} />
@@ -293,6 +295,7 @@ const CardDetailsForm = () => {
                 placeholder="MM/YY"
                 maxLength={5}
                 className="w-full pr-10 pl-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-left dir-ltr form-input"
+                style={{ direction: "ltr" }}
               />
               <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
                 <Calendar size={18} />
@@ -319,6 +322,9 @@ const CardDetailsForm = () => {
                 placeholder="CVV"
                 maxLength={4}
                 className="w-full pr-10 pl-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-left dir-ltr form-input"
+                style={{ direction: "ltr" }}
+                inputMode="numeric"
+                pattern="[0-9]*"
               />
               <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
                 <Lock size={18} />

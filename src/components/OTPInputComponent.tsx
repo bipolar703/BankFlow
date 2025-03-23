@@ -14,6 +14,7 @@ import { CONSTANTS } from "../types";
  * - Countdown timer with auto-expiry
  * - Retry mechanism with attempt limiting
  * - Error handling and feedback
+ * - Support for both digits and English characters
  */
 const OTPInputComponent = () => {
   const navigate = useNavigate();
@@ -108,30 +109,40 @@ const OTPInputComponent = () => {
     }
   }, [inputValue]);
 
+  // Convert inputValue to uppercase for better visibility
+  const handleOTPChange = (value: string) => {
+    // Accept both numbers and English letters (automatically convert to uppercase)
+    const formattedValue = value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    setInputValue(formattedValue);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center py-6">
       <h2 className="text-xl font-semibold text-gray-800 mb-2 text-center">
         أدخل رمز التحقق
       </h2>
       <p className="text-gray-600 mb-6 text-center">
-        يرجى إدخال رمز التحقق المكون من 6 أرقام المرسل إلى هاتفك
+        يرجى إدخال رمز التحقق المكون من {CONSTANTS.OTP.LENGTH} خانات المرسل إلى
+        هاتفك
       </p>
 
       <div className="mb-6 w-full">
         <OtpInput
           value={inputValue}
-          onChange={setInputValue}
+          onChange={handleOTPChange}
           numInputs={CONSTANTS.OTP.LENGTH}
+          shouldAutoFocus={true}
           renderSeparator={<span className="w-2"></span>}
           renderInput={(props) => (
             <input
               {...props}
-              className="w-12 h-12 text-center border border-gray-300 rounded-md text-xl font-semibold focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 sm:w-14 sm:h-14"
+              className="w-12 h-12 text-center border border-gray-300 rounded-md text-xl font-semibold focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 sm:w-14 sm:h-14 dir-ltr"
               style={{ direction: "ltr" }}
               autoComplete="one-time-code"
+              inputMode="text" /* Allow both letters and numbers */
             />
           )}
-          containerStyle="flex justify-center gap-2 sm:gap-3"
+          containerStyle="flex justify-center gap-2 sm:gap-3 dir-ltr"
         />
       </div>
 
@@ -189,8 +200,8 @@ const OTPInputComponent = () => {
         {timeRemaining > 0 ? (
           <div className="flex items-center justify-center text-gray-600">
             <Clock size={16} className="mr-2 rtl:ml-2 rtl:mr-0" />
-            <p>
-              ينتهي الرمز خلال: {Math.floor(timeRemaining / 60)}:
+            <p className="dir-ltr inline-block">
+              {Math.floor(timeRemaining / 60)}:
               {(timeRemaining % 60).toString().padStart(2, "0")}
             </p>
           </div>
